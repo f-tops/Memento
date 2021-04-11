@@ -1,0 +1,62 @@
+﻿@model List<AplikacijaZaEvidencijuRadnihSati.Models.DnevniIzvjestaj>
+@{
+    ViewBag.Title = "Predani izvještaji";
+    Layout = "~/Views/Shared/_GlavnaAERS.cshtml";
+}
+<style>
+</style>
+
+
+<div class="card text-center mt-5 mx-xl-5">
+    <div class="card-header">
+        <h3>Pregled dostupnih izvještaja</h3>
+    </div>
+    <div class="card-body">
+
+        <div class="row justify-content-center my-lg-5">
+            <div class="col-auto">
+                <table id="evidencija_table" class="table table-striped">
+                    <tr class="titlerow">
+                        <th>Naziv izvještaja</th>
+                        <th>Status</th>
+                        <th>Detaljni prikaz</th>
+                    </tr>
+                    @{
+                        foreach (var dnevniIzvjestaj in Model)
+                        {
+                            <tr>
+                                <td>@dnevniIzvjestaj.Naziv</td>
+
+                                @{ switch (dnevniIzvjestaj.IzvjestajStatus)
+                                    {
+                                        case 1:
+                                            <td style="color:darkslategray">Na pregledu</td>
+                                            break;
+                                        case 2:
+                                            <td style="color:green">Odobren</td>
+                                            break;
+                                        case 3:
+                                            <td style="color:red">Vraćen na doradu</td>
+                                            break;
+                                        default:
+                                            <td>Na pregledu 2</td>
+                                            break;
+                                    }
+                                }
+                                <td>
+                                    <button name="id" class="btn btn-info" value="@dnevniIzvjestaj.IDDnevniIzvjestaj" onclick="location.href='@Url.Action("Detalji", "PredaniIzvjestaji", new { id=dnevniIzvjestaj.IDDnevniIzvjestaj })'">Detalji</button>
+                                </td>
+                            </tr>
+                        }
+                    }
+
+                </table>
+
+
+            </div>
+        </div>
+
+
+
+    </div>
+</div>

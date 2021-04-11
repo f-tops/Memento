@@ -1,0 +1,54 @@
+﻿@model List<AplikacijaZaEvidencijuRadnihSati.Models.Detalji>
+
+@{
+    ViewBag.Title = "Detalji";
+    Layout = "~/Views/Shared/_GlavnaAERS.cshtml";
+}
+
+@{var prviElement = Model.First();
+
+
+    <div class="card text-center mx-auto">
+        <div class="card-header">
+            <h3>@prviElement.Naziv</h3>
+        </div>
+        <div class="card-body">
+
+            <div class="row justify-content-center my-5">
+                <div class="col-auto">
+
+
+                        <h4>Datum predanog izvještaja: @prviElement.Datum.ToShortDateString()</h4>
+                        <table class="table">
+                            <tr>
+                                <th>@Resources.Resource.Projekt</th>
+                                <th>@Resources.Resource.RadniSati</th>
+                                <th>@Resources.Resource.PrekovremeniSati</th>
+                            </tr>
+                            @foreach (var detalji in Model)
+                            {
+                                <tr>
+                                    <td>@detalji.ProjektNaziv</td>
+                                    <td>@Html.TextBoxFor(m => detalji.RadniSati)</td>
+                                    <td>@Html.TextBoxFor(m => detalji.PrekovremeniSati)</td>
+                                </tr>
+                            }
+                        </table>
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body mx-lg-5 align-content-lg-center">
+                                <h5 class="card-title">Komentar</h5>
+                                <p class="card-text">@Html.TextBoxFor(m => prviElement.Komentar)</p>
+                            </div>
+                        </div>
+
+                        <p>
+                            @Html.ActionLink("Nazad", "Index")
+                        </p>
+                        <button id="btnSubmit" type="submit" class="btn btn-success">@Resources.Resource.Predaj</button>
+                    </div>
+                    
+            </div>
+        </div>
+    </div>
+
+    }

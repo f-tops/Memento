@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <script src="~/Scripts/popper.js"></script>
+    <script src="~/Scripts/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="~/Scripts/StopWatch.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Slike/favicon.ico" rel="icon" type="image/x-icon" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <script>
+        function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById('time').innerHTML =
+                h + ":" + m + ":" + s;
+            var t = setTimeout(startTime, 500);
+        }
+        function checkTime(i) {
+            if (i < 10) { i = "0" + i };
+            return i;
+        }
+
+
+    </script>
+    <style>
+        .navbar {
+            box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+        }
+        
+    </style>
+</head>
+<body onload="startTime()">
+
+
+    <!--Navbar -->
+    <nav class="mb-1 navbar navbar-expand-lg navbar-light bg-light">
+        
+        <a class="navbar-brand" href="@Url.Action("Index", "Evidencija")">
+            <img src="~/Slike/logo.png" width="50" class="d-inline-block align-top" alt="">Memento
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-3" aria-controls="navbarSupportedContent-3" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-3">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    @Html.ActionLink(Resources.Resource.Link1, "Index", "Evidencija", null, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink(Resources.Resource.Link2, "Index", "PredaniIzvjestaji", null, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink(Resources.Resource.Link3, "Index", "Profil", null, new { @class = "nav-link" })
+                </li>
+
+            </ul>
+            <ul class="navbar-nav">
+                <li class="navbar-text mr-4">
+                    @Resources.Resource.Pozdrav @Session["Ime"].ToString(), @Resources.Resource.TrenutnoJe <span id="time"></span>
+                </li>
+                <li class="nav-item pr-2">@Html.ActionLink("Hrvatski", "Change", "Evidencija", new { LanguageAbbrevation = "hr-HR" }, new { @class = "btn btn-primary" })</li>
+                <li class="nav-item mr-4">@Html.ActionLink("English", "Change", "Evidencija", new { LanguageAbbrevation = "en-GB" }, new { @class = "btn btn-primary" })</li>
+                <li class="nav-item">@Html.ActionLink("Logout", "Logout", "Evidencija", null, new { @class = "btn btn-info" })</li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div>
+        @RenderBody()
+        <footer>
+            <p class="text-center">&copy; 2021 - Franjo Topić, RWA </p>
+        </footer>
+    </div>
+
+</body>
+</html>

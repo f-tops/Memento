@@ -1,0 +1,94 @@
+﻿@model List<AplikacijaZaEvidencijuRadnihSati.Models.ProjektDjelatnik>
+@{
+    ViewBag.Title = "Evidencija";
+    Layout = "~/Views/Shared/_GlavnaAERS.cshtml";
+}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="~/Scripts/StopWatch.js"></script>
+<script src="~/Scripts/DateTime.js"></script>
+<script type="text/javascript" src="~/Scripts/Predaj.js"></script>
+<style>
+    .card {
+        box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .table {
+        box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+    }
+</style>
+<div class="card text-center mt-5 mx-xl-5">
+    <div class="card-header">
+        <h3>@Resources.Resource.Evidencija</h3>
+    </div>
+    <div class="card-body">
+        <p class="card-text">
+            @Resources.Resource.EvidencijaTxt
+        </p>
+
+        <div class="row justify-content-center my-lg-5">
+            <div class="col-auto">
+                <form>
+                    <input class="form-control w-50" type="text" id="datepicker" placeholder="@Resources.Resource.OdaberiteDatum">
+                    <table id="evidencija_table" class="table table-striped">
+                        <tr class="titlerow">
+                            <th>@Resources.Resource.Projekt</th>
+                            <th>@Resources.Resource.Timer</th>
+                            <th>@Resources.Resource.RadniSati</th>
+                            <th>@Resources.Resource.PrekovremeniSati</th>
+                        </tr>
+                        @{
+                            int i = 0;
+                            foreach (var projektDjelatnik in Model)
+                            {
+                                <tr>
+                                    <td>@projektDjelatnik.NazivProjekta<input type="hidden" id="custId1" class="custId" name="custId" value="@projektDjelatnik.IDProjektDjelatnik"></td>
+
+                                    <td>
+                                        <div class="stopwatch" data-autostart="false">
+                                            <div class="time d-inline-block">
+                                                <span class="hours"></span> :
+                                                <span class="minutes"></span> : (
+                                                <span class="seconds"></span> )
+                                            </div>
+                                            <div class="controls d-inline-block">
+                                                <!-- Svaki klik sumira se ukupno vrijeme-->
+                                                <span id="@i" class="btn btn-info toggle suma" onclick="UpaliUgasi(@i);sumaStopWatch()" data-pausetext="Stop" data-resumetext="Start">
+                                                    Start
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><input type="text" class="form-control text-center radni" placeholder="00:00" value="00:00"></td>
+                                    <td><input type="text" class="form-control text-center prekovremeni" placeholder="00:00" value="00:00"></td>
+                                </tr>
+                                i++;
+                            }
+                        }
+                        <tr>
+                            <td>@Resources.Resource.Ukupno</td>
+                            <td><span id="txt2" class="mjerenoUkupno">00:00</span></td>
+                            <td><span id="txt3">00:00</span></td>
+                            <td><span id="txt4">00:00</span></td>
+                        </tr>
+
+                    </table>
+                    <div class="form-group">
+                        <label for="comment">@Resources.Resource.Komentar</label>
+                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                    </div>
+
+                    <input type="reset" class="btn btn-danger">
+                    <button id="btnSubmit" type="button" class="btn btn-success">@Resources.Resource.Predaj</button>
+                </form>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
